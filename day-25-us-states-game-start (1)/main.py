@@ -39,6 +39,9 @@ while number_of_states_correct != 50:
     answer_state = answer_state.title()
 
     if answer_state == "Exit":
+        missed_states = [state for state in list_of_states if state not in states_confirmed]
+        new_data = pandas.DataFrame(missed_states)
+        new_data.to_csv("states_to_practice.csv")
         break
 
     if answer_state in list_of_states and answer_state not in states_confirmed:
@@ -57,13 +60,3 @@ while number_of_states_correct != 50:
         # print(dict_of_states_and_locations["x_coor"][state_idx])
         # print(dict_of_states_and_locations["y_coor"][state_idx])
 
-# generate a csv of all the states not guessed.
-states_dict = {
-    "state": [],
-    "state_x": [],
-    "state_y": []
-}
-for state in list_of_states:
-    if state not in states_confirmed:
-        states_dict[state] = states_row = states_data[states_data.state == state]
-        print(states_row.state)
